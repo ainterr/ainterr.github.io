@@ -66,3 +66,16 @@ p {
   color: #9d9d9d;
   width: unset;
 }
+
+.project-pic {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 35px;
+}
+
+.project-btn {
+  display: block;
+  margin-top: 35px;
+  text-align: center;
+}

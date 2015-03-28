@@ -4,25 +4,33 @@ var skills = function() {
   var skills = [
   { "name":"Python", "description":"Python is my go-to language for quick scripts, file conversions, data parsing, or anything that has a short turnover time. It's an essential tool for my everyday work." },
   { "name":"C and C++", "description":"I took classes in C and C++ in high school and college and have used it in numerous projects and activities." },
-  { "name":"Java", "description":"Java was one of the first languages I learned and I've used it in a couple of projects. I also became much more familiar with Java in my work at Sandia writing Android apps." }
+  { "name":"Java", "description":"Java was one of the first languages I learned and I've used it in a couple of projects. I also became much more familiar with Java in my work at Sandia writing Android apps." },
+  { "name":"Web Development", "description":"I have a side interest in web development and have done it as a part-time job in the past. I'm pretty comfortable with HTML5, CSS3, Javascript, PHP, jQuery, Bootstrap, and D3.js." },
+  { "name":"Bash (scripting)", "description":"I hate doing the same work twice. I'm a big fan of automation and scripting for just about anything repetitive." },
+  { "name":"Ruby", "description":"I contributed to <a href='https://github.com/ccss-sandia/antfarm' target='_blank'>ANTFARM</a> - a network mapping solution developed by Sandia written in Ruby with Active Record." },
+  { "name":"Network Administration", "description":"I'm the team captain of Northeastern's <a href='http://www.nationalccdc.org/' target='_blank'>CCDC</a> team. If you're not familiar with the CCDC, it's a competition where a team of eight students is dropped into a small business network environment and is actively targeted by a professional red team. Teams are scored on service availability, mitigation of red team activity, and response to business injects." }
   ];
   
   var enter = d3.select(".skills .skill-list").selectAll("li").data(skills).enter();
-  var lis = enter.append("li").text(function(d) { return d.name+" - "+d.description; });
+  var lis = enter.append("li").html(function(d) { return d.name+" - "+d.description; });
 };
 
 var experience = function() {
   // This will populate our experience data
   // Experience Data
   var experience = [
-  { "date":"[date]", "company":"[company]", "description":"[description]" }
+  { "date":"January 2015 - Present", "company":"Raytheon IDS", "description":"Researched and deployed the Host Based Security System (HBSS) on DoD owned Raytheon systems. Hardened systems to comply with their respective Security Technical Implementation Guides (STIGs)." },
+  { "date":"April 2014 - December 2014", "company":"The New Mexico Center for family Policy/Values", "description":"Acted as lead webmaster and migrated old website from static HTML to dynamic PHP implementing jQuery, AJAX, and CSS3." },
+  { "date":"April 2014 - August 2014", "company":"Sandia National Laboratories", "description":"Contributed to Sandia's <a href='https://github.com/ccss-sandia/antfarm' target='_blank'>ANTFARM</a>. Identified network traffic fingerprints for various Android advertising frameworks. Worked with a team of cyber security professionals in a high-performance computing lab constructing virtual networks using KVM and OVS and presenting findings to multi-million dollar customers." },
+  { "date":"October 2013 - April 2014", "company":"Sridhar NeuroDot Lab", "description":"Work with post-doc students to develop firmware for Arduino-based, minimal contact neural imaging device. Helped implement Bluetooth 4.0 for wireless communication from sensor to python-based GUI." },
+  { "date":"June 2012 - September 2013", "company":"Sandia National Laboratories", "description":"Implemented a number open source tools to demonstrate the interception and decryption of GSM (2G) cellphone calls using publicly available rainbow tables. <a href='http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6735818&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D6735818' target='_blank'>Published in MILCOM 2013</a>." }
   ];
   
   var enter = d3.select(".experience .experience-list").selectAll("tr").data(experience).enter();
   var trs = enter.append("tr")
   trs.append("td").text(function(d) { return d.date; });
-  trs.append("td").text(function(d) { return d.company; });
-  trs.append("td").text(function(d) { return d.description; });
+  trs.append("td").html(function(d) { return d.company; });
+  trs.append("td").html(function(d) { return d.description; });
 };
 
 var projects = function() {
@@ -40,11 +48,19 @@ var projects = function() {
 	var enter = d3.select(".projects .content .col-md-12").selectAll("div")
 		.data(projects).enter();
 	var divs = enter.append("div");
-	divs.attr("class", function(d) { return "project "+d.short; });
+	divs.attr("class", function(d) { return "project col-md-4 "+d.short; });
+  // Add the image
+  imgs = divs.append("img").attr({ "class":"img-circle project-pic", "width":"200", "height":"200"});
+  imgs.attr("src", function(d) { return "img/"+d.short+".png"; });
+  imgs.attr("alt", function(d) { return d.short; });  
 	divs.append("h3").text(function(d) { return d.name+" - "+d.date; });
-	divs.append("p").html(function(d) { 
-    return d.description + ' <a href="'+d.link+'" target="_blank">Check it out</a>.'; 
-  });
+  // Add the check it out button
+  //<a href="https://drive.google.com/open?id=0B8o9ECRWDu2CbG9Pb2ZwSlV0VGM&authuser=0" target="_blank"><button type="button" class="btn btn-success btn-contact">Download my Resume</button></a>
+  divs.append("p").html(function(d) { return d.description; });
+  divs.append("div")
+    .attr("class","project-btn")
+    .html(function(d) { return ' <a href="'+d.link+'" target="_blank"><button type="button" class="btn btn-success btn-contact">Check it out &gt&gt</button></a>'; 
+    });
 	
   // Append the menu items
 	enter = d3.select(".dropdown-menu").selectAll("li")

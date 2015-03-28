@@ -1,5 +1,5 @@
 // Some global vars
-var jumbotron_height, about_me_height, projects_height, resume_height, scroll_buffer = 100;
+var jumbotron_height, about_me_height, projects_height, resume_height, scroll_buffer = -100;
 
 var bring_in = function(page, time) {
 	// This function animates in the given section
