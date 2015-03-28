@@ -46,11 +46,9 @@ p {
   opacity: 0;
 }
 
-.resume-viewer {
-  display: block;
-  margin: 0 auto;
-  width: 80%;
-  height: 600px;
+.resume-section {
+  margin-top: 20px;
+  text-align: center;
 }
 
 .contact-info {
