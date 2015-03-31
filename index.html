@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="favicon.ico">
@@ -13,8 +12,7 @@
 
 <!-- Bootstrap core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom styles for this template -->
+<!-- Custom styles -->
 <link href="style.css" rel="stylesheet">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -25,6 +23,7 @@
 </head>
 
 <body>
+<!---------------------------------------- NAV --------------------------------------->
 <nav class="navbar navbar-inverse navbar-fixed-top">
 <div class="container">
 <div class="navbar-header">
@@ -42,41 +41,53 @@
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Projects <span class="caret"></span></a>
 <ul class="dropdown-menu" role="menu">
-<!-- This will be populated by D3 -->
+<!-- Projects nav bar will be populated by D3 -->
 </ul>
 </li>
 <li><a href="#resume" name="resume">Resume</a></li>
 <li><a href="#contact" name="contact"><button type="button" class="btn btn-success btn-contact">Contact</button></a></li>
 </ul>
-</div><!--/.nav-collapse -->
+</div>
 </div>
 </nav>
+<!--------------------------------------- /NAV --------------------------------------->
 
-<div class="container">
+<!------------------------------------- JUMBOTRON ------------------------------------>
 <div class="jumbotron">
-<h1>Alex Interrante-Grant</h1>
-<p>Student, Hacker, Developer, and Cybersecurity Professional</p>
+<div class="container">
+<h1 class="jumbotron-title">Alex Interrante-Grant</h1>
+<p class="jumbotron-sub">Student, Hacker, Developer, and Cybersecurity Professional</p>
+<a href="#about" name="about"><button type="button" name="about" class="btn btn-success jumbotron-btn">About Me &raquo;</button></a>
 </div>
+</div>
+<!------------------------------------- /JUMBOTRON ----------------------------------->
 
+<!-------------------------------------- CONTENT ------------------------------------->
+<div class="container page-content">
+
+<!-------------------------------------- ABOUT_ME ------------------------------------>
 <div class="container section about_me">
 <div class="page-header">
 <h1>About Me</h1>
 </div>
 
 <div class="content">
-<div class="col-md-12">
+<div class="col-md-3">
 <img src="./img/me.jpg" class="img-thumbnail" alt="Alex Interrante-Grant">
+</div>
+<div class="col-md-9">
 <p>
-I am an undergraduate student at Northeastern University pursuing a degree in computer engineering and a career in cybersecurity.
-</p>
-<p class="quote">
-"I believe that the best source of education is real world experience - applying the concepts learned in the classroom to real world problems to deliver tangible results. This philosophy has lead me to pursue my passion for computers and cyber security in both my education as well as my free time. From my classes in both hardware and software to the on the job experience I gained through internships and Northeastern's Cooperative Eduacation Program, I have a solid background in electronics and security and I am eager to learn more."
+I am an undergraduate student at Northeastern University studying computer engineering, a problem solver interested in new and exciting challenges, and a developer looking to leverage technology to make the world easier, safer, and more efficient. Cybersecurity is interesting to me because it's a new and quickly evolving field and there are innumerable very complex problems to be solved every day.
 </p><p>
-My passion for cybersecurity and constant desire to better myself has led me to become the person I am today. I immensely enjoy learning new things and bettering my skills whenever and however I can. I love new opportunities and hard problems - the best problems and projects are the ones where don't see a path through to the solution at first glance.
+I believe that the best source of education is real world experience - applying the concepts learned in the classroom to real world problems to deliver tangible results. This philosophy has lead me to pursue my passion for computers and cyber security in both my education as well as my free time. From my classes in both hardware and software to the on the job experience I gained through internships and Northeastern's Cooperative Eduacation Program, I have a solid background in electronics and security and I am eager to learn more.
+</p><p>
+My passion for cybersecurity and constant desire to better myself has led me to become the person I am today. I immensely enjoy learning new things and bettering my skills whenever and however I can. I love new opportunities and hard problems - the best projects are the ones where don't see a path through to the solution at first (and usually second and third) glance.
+</p><p>
+- Alex Interrante-Grant
 </p>
 </div>
-<div class="col-md-12">
 
+<div class="col-md-12">
 <div class="skills">
 <h3>Skills</h3>
 <ul class="skill-list">
@@ -89,9 +100,9 @@ My passion for cybersecurity and constant desire to better myself has led me to 
 <table class="table experience">
 <thead>
 <tr>
-<th>Date</th>
-<th>Company</th>
-<th>Description</th>
+<th class="experience-date">Date</th>
+<th class="experience-company">Company</th>
+<th class="experience-description">Description</th>
 </tr>
 </thead>
 <tbody class="experience-list">
@@ -99,11 +110,13 @@ My passion for cybersecurity and constant desire to better myself has led me to 
 </tbody>
 </table>
 </div>
-
-</div>
-</div>
 </div>
 
+</div>
+</div>
+<!------------------------------------ /ABOUT_ME ------------------------------------->
+
+<!------------------------------------- PROJECTS ------------------------------------->
 <div class="container section projects">
 <div class="page-header">
 <h1>Projects</h1>
@@ -115,7 +128,9 @@ My passion for cybersecurity and constant desire to better myself has led me to 
 </div>
 </div>
 </div>
+<!------------------------------------ /PROJECTS ------------------------------------->
 
+<!-------------------------------------- RESUME -------------------------------------->
 <div class="container section resume">
 <div class="page-header">
 <h1>Resume</h1>
@@ -123,11 +138,13 @@ My passion for cybersecurity and constant desire to better myself has led me to 
 
 <div class="content">
 <div class="col-md-12 resume-section">
-<a href="https://drive.google.com/open?id=0B8o9ECRWDu2CbG9Pb2ZwSlV0VGM&authuser=0" target="_blank"><button type="button" class="btn btn-success btn-contact">Download my Resume</button></a>
+<h4>For formal resumes, transcripts, or any other questions please <a name="contact" href="#contact">contact me</a>.</h4>
 </div>
 </div>
 </div>
+<!------------------------------------- /RESUME -------------------------------------->
 
+<!------------------------------------- CONTACT -------------------------------------->
 <div class="container section contact">
 <div class="page-header">
 <h1>Contact</h1>
@@ -137,25 +154,30 @@ My passion for cybersecurity and constant desire to better myself has led me to 
 <div class="col-md-12 contact-info">
 <h3>Alex Interrante-Grant</h3>
 <h5>
-<a href="mailto:a.interrantegrant@gmail.com" style="margin-right: 30px;">a.interrantegrant@gmail.com</a>
-(505) 306-8306
+<ul class="contact-methods">
+<li><a href="mailto:a.interrantegrant@gmail.com">a.interrantegrant@gmail.com</a></li>
+<li>(505) 306-8306</li>
+</ul>
 </h5>
 </div>
 </div>
 </div>
+<!------------------------------------ /CONTACT -------------------------------------->
 
-</div><!-- /.container -->
+</div>
+<!------------------------------------- /CONTENT ------------------------------------->
 
+
+<!--------------------------------------- FOOT --------------------------------------->
 <div class="container footer">
 Developed by Alex Interrante-Grant
 </div>
+<!-------------------------------------- /FOOT --------------------------------------->
 
-<!-- Included javascript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
+<!-- Included javascript -->
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/d3.js"></script>
+<script src="js/d3.min.js"></script>
 
 <!-- Custom javascript -->
 <script src="d3_scripts.js"></script>
