@@ -36,15 +36,15 @@ var experience = function() {
   trs.append("td").append("p").html(function(d) { return d.description; });
 };
 
-var projects = function() {
+var projects = function(scroll_time) {
   // This will populate our project data
   // Project Data
   
   // Notes:
   // Titles should be ~ 50 characters
   // Descriptions should be ~ 450 - 500 characters
-  var projects = [
-  { "date":"Spring 2015", "name":"This Site (Bootstrap, jQuery, and D3.js)", "short":"thissite", "description":"Web development is a hobby of mine and holds a special place in my heart since my first experience with programming was in a WebDev class in high school. After spending lots of time developing web pages for other people part time I decided it was finally time to write a personal page. I used <a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a> for the styles and cross-browser compatability, <a href='https://jquery.com/' target='_blank'>jQuery</a> for the animations, and <a href='http://d3js.org/' target='_blank'>D3.js</a> to make the page extensible.", "link":"https://github.com/ainterr/ainterr.github.io" },
+  var projects = [ 
+  { "date":"Spring 2015", "name":"This Site (Bootstrap, jQuery, and D3.js)", "short":"thissite", "description":"Web development is a hobby of mine and holds a special place in my heart since my first experience with programming was in a WebDev class in high school. After spending lots of time developing web pages for other people part time I decided it was finally time to write a personal page. I used <a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a> for the styles and cross-browser compatability, <a href='https://jquery.com/' target='_blank'>jQuery</a> for the animations, and <a href='http://d3js.org/' target='_blank'>D3.js</a> to make the page easily extensible.", "link":"https://github.com/ainterr/ainterr.github.io" },
   { "date":"Fall 2014", "name":"WiiMote Controlled Robot Arm (FPGA and C++)", "short":"arm", "description":"The first really interesting class I took at Northeastern was <a href='http://www.northeastern.edu/esl/content/embedded-des-enabling-robotics-fall-2014' target='_blank'>Embedded Design Enabling Robotics</a>. It was an introduction into C++ and FPGA programming through the use of a <a href='http://zedboard.org/' target='_blank'>ZedBoard</a>. The class was designed around a project - control a servo-powered robotic arm using an WiiMote. We developed FPGA designs in Simulink for pulse width modulation to control the individual servo motors and C++ to gather input from the WiiMote via memory-mapped I/O.", "link":"http://www.youtube.com/watch?v=OV6TqJquSAU" },
   { "date":"Spring 2014", "name":"Image Processing Coin Counter (C++)", "short":"coin", "description":"In my second semester I took an introductory C++ class. Since I already knew C++ fairly well I caught on quickly and soon asked my professor for some extra work. Dr. Tadmor challenged me to write a program to count the amount of change in some pictures of coins lying on a table. After a lot of work I came up with a program that compares the relative diameters of the coins using <a href='http://opencv.org/' target='_blank'>OpenCV</a> along with some computer vision algorithms I created myself for edge detection.", "link":"https://github.com/ainterr/CoinCounter" },
   { "date":"Fall 2013", "name":"5x5x5 LED Cube (Arduino and Hardware)", "short":"cube", "description":"In my freshman year at Northeastern I was required to take a lot of introductory level engineering, math, and science classes. After a few weeks of Chemistry, Differential Equations, and Engineering Design I decided I needed something to keep my skills sharp while I satisfied requirements so I bought a couple hundred LEDs, some multiplexor ICs, and an <a href='http://arduino.cc/en/main/arduinoBoardUno' target='_blank'>Arduino Uno</a>. After hours of soldering, the result was a 5x5x5 LED cube that I could program in C++.", "link":"https://youtu.be/PA8yM02Kvf8" },
@@ -62,7 +62,6 @@ var projects = function() {
   imgs.attr("alt", function(d) { return d.short; });  
   divs.append("h3").text(function(d) { return d.name+" - "+d.date; });
   // Add the check it out button
-  //<a href="https://drive.google.com/open?id=0B8o9ECRWDu2CbG9Pb2ZwSlV0VGM&authuser=0" target="_blank"><button type="button" class="btn btn-success btn-contact">Download my Resume</button></a>
   divs.append("p").html(function(d) { return d.description; });
   divs.append("div")
     .attr("class","project-btn")
@@ -74,9 +73,48 @@ var projects = function() {
     .data(projects).enter();
   lis = enter.append("li");
   as = lis.append("a").text(function(d) { return d.name; });
-  as.attr("href", function(d) { return "#"+d.short; });
   as.attr("name", function(d) { return d.short; });
   
-  var scroll_time = 250;
   as.on("click",function(d) { scroll_to(d.short, scroll_time, 50); });
 };
+
+var news = function() {
+  // This will populate our news data
+  // News Data
+  
+  var news = [
+  { "headline":"My New Website", "description":"It's about time I built myself a website. The source code is public on <a href='https://github.com/ainterr/' target='_blank'>my GitHub</a> if you're interested. Feel free to let me know what you think.", "image":"img/website.jpg", "link":"https://github.com/ainterr/ainterr.github.io" },
+  { "headline":"NECCDC 2015", "description":"Northeastern placed second in the NECCDC at <a href='http://www.syr.edu/' target='_blank'>Syracuse University</a> this year. Excellent work everyone - I'm proud to have been the team captain.", "image":"img/neccdc.jpg", "link":"http://neccdc.net/wordpress/" }
+  ];
+  
+  // Add indicators
+  dat = Array.apply(null, {length: news.length}).map(Number.call, Number);
+  enter = d3.select(".carousel-indicators").selectAll("li")
+    .data(dat).enter();
+  indicators = enter.append("li").attr("data-target","#news-carousel")
+    .attr("data-slide-to", function(d) { return d; });
+  
+  // Add news entries
+  enter = d3.select(".carousel-inner").selectAll("div")
+    .data(news).enter();
+  divs = enter.append("div").attr("class","item");
+  // Add a background picture
+  imgs = divs.append("div");
+  imgs.attr("class","carousel-background")
+    .attr("style", function(d) { return "background-image: url('"+d.image+"')"; });
+  // Add captions
+  captions = divs.append("div").attr("class","container")
+    .append("div").attr("class","carousel-caption");
+  captions.append("h1").text(function(d) { return d.headline; });
+  captions.append("p").attr("class","carousel-text").html(function(d) { return d.description; });
+  captions.append("a")
+    .attr("class","btn btn-success clear-btn")
+	.attr("role","button")
+	.attr("href", function(d) { return d.link; })
+	.attr("target","_blank")
+	.html("Check it out &raquo;");
+	
+  // Activate the first indicator and article
+  d3.select(divs[0][0]).attr("class","item active");
+  d3.select(indicators[0][0]).attr("class","active");
+}
