@@ -15,6 +15,7 @@ html {
 body {
   height: 100%;
   background: #fafafa;
+  overflow-x: hidden;
 }
 
 a {
@@ -136,12 +137,26 @@ a {
   font-weight: bold;
 }
 
-.experience-date {
-  width: 12%;
+.skills-desc {
+  font-size: 18px;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  padding-left: 30px;
+  padding-right: 30px;
+  margin: 0;
+  text-align: justify;
+  background: rgba(220,220,220,.7);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius:10px;
 }
 
-.experience-company {
-  width: 17%;
+.timeline-axis line,
+.timeline-axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
 }
 
 .contact-info {

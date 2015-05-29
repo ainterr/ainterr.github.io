@@ -8,43 +8,164 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-var skills = function() {
-  // This will populate our skill data
-  // Skill Data
-  var skills = [
-  { "name":"Python", "description":"Python is my go-to language for quick scripts, file conversions, data parsing, or anything that has a short turnover time. It's an essential tool for my everyday work." },
-  { "name":"C and C++", "description":"I took classes in C and C++ in high school and college and have used it in numerous projects and activities." },
-  { "name":"Java", "description":"Java was one of the first languages I learned and I've used it in a couple of projects. I also became much more familiar with Java in my work at Sandia writing Android apps." },
-  { "name":"Web Development", "description":"I have a side interest in web development and have done it as a part-time job in the past. I'm pretty comfortable with HTML5, CSS3, Javascript, PHP, <a href='https://jquery.com/' target='_blank'>jQuery</a>, <a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a>, and <a href='http://d3js.org/' target='_blank'>D3.js</a>." },
-  { "name":"Bash (scripting)", "description":"I hate doing the same work twice. I'm a big fan of automation and scripting for just about anything repetitive." },
-  { "name":"Ruby", "description":"I contributed to <a href='https://github.com/ccss-sandia/antfarm' target='_blank'>ANTFARM</a> - a network mapping solution developed by Sandia written in Ruby with Active Record." },
-  { "name":"Network Administration", "description":"I'm the team captain of Northeastern's <a href='http://www.nationalccdc.org/' target='_blank'>CCDC</a> team. If you're not familiar with the CCDC, it's a competition where a team of eight students is dropped into a small business network environment and is actively targeted by a professional red team. Teams are scored on service availability, mitigation of red team activity, and response to business injects." },
-  { "name":"Network Virtualization", "description":"In my time with Northeastern's <a href='http://www.nationalccdc.org/' target='_blank'>CCDC</a> team, I've had a lot of experience with <a href='http://www.vmware.com/' target='_blank'>VMware</a> and <a href='http://aws.amazon.com/' target='_blank'>AWS</a>. From setting up labs to simulating competiton environments almost all of our practice is virtualized. I also worked in a high performance virtualization lab at Sandia where we used <a href='http://openvswitch.org/' target='_blank'>OVS</a> and <a href='http://www.linux-kvm.org/page/Main_Page' target='_blank'>KVM</a> to host very large networks for testing purposes." }
-  ];
-  
-  // Add a bullet for each skill
-  var enter = d3.select(".skills .skill-list").selectAll("li").data(skills).enter();
-  var lis = enter.append("li").append("p").html(function(d) { return "<font class='bold'>"+d.name+"</font> - "+d.description; });
-};
+var skills = function () {
+// This function will generate our skills virtualization
+// Skills Data
+	var data = [ 
+	{ text:"Python", size:100, description:"Python is my go-to language for quick scripts, file conversions, data parsing, or anything that has a short turnover time. It's an essential tool for my everyday work." },
+	{ text:"C/C++", size:100, description:"I took classes in C and C++ in high school and college and have used it in numerous projects and activities." },
+	{ text:"Java", size:60, description:"Java was one of the first languages I learned and I've used it in a couple of projects. I also became much more familiar with Java in my work at Sandia writing Android apps." },
+	{ text:"Web Dev", size:35, description:"I have a side interest in web development and have done it as a part-time job in the past. I'm pretty comfortable with HTML5, CSS3, Javascript, PHP, <a href='https://jquery.com/' target='_blank'>jQuery</a>, <a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a>, and <a href='http://d3js.org/' target='_blank'>D3.js</a>." },
+	{ text:"Bash", size:25, description:"I hate doing the same work twice. I'm a big fan of automation and scripting for just about anything repetitive." },
+	{ text:"Ruby", size:20, description:"I contributed to <a href='https://github.com/ccss-sandia/antfarm' target='_blank'>ANTFARM</a> - a network mapping solution developed by Sandia written in Ruby with Active Record." },
+	{ text:"System Admin", size:50, description:"I'm the team captain of Northeastern's <a href='http://www.nationalccdc.org/' target='_blank'>CCDC</a> team. If you're not familiar with the CCDC, it's a competition where a team of eight students is dropped into a small business network environment and is actively targeted by a professional red team. Teams are scored on service availability, mitigation of red team activity, and response to business injects." },
+	{ text:"Virtualization", size:50, description:"In my time with Northeastern's <a href='http://www.nationalccdc.org/' target='_blank'>CCDC</a> team, I've had a lot of experience with <a href='http://www.vmware.com/' target='_blank'>VMware</a> and <a href='http://aws.amazon.com/' target='_blank'>AWS</a>. From setting up labs to simulating competiton environments almost all of our practice is virtualized. I also worked in a high performance virtualization lab at Sandia where we used <a href='http://openvswitch.org/' target='_blank'>OVS</a> and <a href='http://www.linux-kvm.org/page/Main_Page' target='_blank'>KVM</a> to host very large networks for testing purposes." },
+	{ text:"Powershell", size:20, description:"" },
+	{ text:"jQuery", size:20, description:"" },
+	{ text:"D3.js", size:30, description:"" },
+	{ text:"OpenCV", size:20, description:"" },
+	{ text:"Git", size:25, description:"" },
+	{ text:"HTML", size:20, description:"" },
+	{ text:"CSS", size:20, description:"" },
+	];
+
+	// Color palette - some colors from the site with weighted frequency so 
+	// randomization is a bit more aesthetically pleasing
+	var color_palette = [
+	"333333", "333333", "333333", "333333", "333333",
+	"999966", "999966", "999966", "999966",
+	"963100", "963100", "963100",
+	"5cb85c", "5cb85c",
+	"CC0000",
+	"FF9900"
+	];
+
+	// Some parameters for changing the size of the visualization
+	var style = {
+	width: document.body.clientWidth < 800+160 ? document.body.clientWidth-.25*document.body.clientWidth : 800,
+	height: 400
+	};
+
+	// Create the fill object
+	var fill = d3.scale.category20();
+
+	// Create the word cloud object with our data
+	d3.layout.cloud().size([style.width, style.height])
+		.words(data)
+		.padding(5)
+		// Allow rotation angles from -90 to 90  in 12 degree increments
+		.rotate(function() { return ~~(Math.random() * 15) * 12 - 90; })
+		.font("Impact")
+		// Set our weighted size
+		.fontSize(function(d) { return d.size; })
+		.on("end", draw)
+		.start();
+
+	function draw(words) {
+	// This function draws the words on the page
+	div = d3.select(".skills").append("div");
+	div.attr("class", "word-cloud")
+		.style("width", style.width+"px")
+		.style("height", style.height+"px")
+		.style("position", "relative")
+		.style("margin", "0 auto");
+		
+	svg = div.append("svg")
+		.attr("width", style.width)
+		.attr("height", style.height);
+
+	text = svg.append("g")
+		.attr("transform", "translate("+style.width/2+","+style.height/2+")")
+		.selectAll("text").data(words).enter()
+		.append("text");
+
+	// Generate the words
+	text.style("font-size", function(d) { return d.size + "px"; })
+		// Random color from the color palette
+		.style("fill", function(d) { return "#"+color_palette[~~(Math.random() * color_palette.length)]; })
+		.style("font-family", "Impact")
+		.style("opacity", 0)
+		.attr("text-anchor", "middle")
+		.attr("transform", function(d) {
+			return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+		})
+		.text(function(d) { return d.text; });
+
+	// This lets us create clickable words with descriptions
+	text.style("cursor", function(d) {
+			if (d.description) return "pointer";
+			else return "default";
+		})
+		.on("click", function(d) {
+			if (!d.description) return;
+			
+			// Create a clickout box so we can leave the description
+			clickout = svg.append("rect")
+				.attr("width", style.width)
+				.attr("height", style.height)
+				.style("opacity", 0)
+				.on("click", function(d) {
+					text.transition()
+						.duration(250)
+						.style("opacity", 1)
+						.each("end", function() { clickout.remove(); });
+						popup.remove();
+				});
+			
+			// Add the description popup
+			popup = div.append("p")
+				.attr("class", "skills-desc")
+				.style("opacity", 0)
+				.style("width", style.width+"px")
+				.html(d.description);
+				
+			text.transition()
+				.duration(250)
+				.style("opacity", .2);
+				
+			popup.transition()
+				.duration(250)
+				.style("opacity", 1);
+		});
+
+	// Add the transition effects
+	text.transition()
+		.duration(function(d) { return (~~(Math.random() * 7) + 1) * 200; })
+		.style("opacity", 1)
+		.each("end", function(d) {
+			d3.select(this).on("mouseenter", function(d) {
+				if (!d.description) return;
+				d3.select(this).transition()
+					.duration(100)
+					.style("font-size", d.size+4);
+			})
+			.on("mouseout", function(d) {
+				if (!d.description) return;
+				d3.select(this).transition()
+					.duration(100)
+					.style("font-size", d.size);
+			});
+		});
+	}
+}
 
 var experience = function() {
-  // This will populate our experience data
-  // Experience Data
-  var experience = [
-  { "date":"January 2015 - Present", "company":"Raytheon IDS", "description":"Researched and deployed the Host Based Security System (HBSS) on DoD owned Raytheon systems. Hardened systems to comply with their respective Security Technical Implementation Guides (STIGs)." },
-  { "date":"April 2014 - December 2014", "company":"The New Mexico Center for family Policy/Values", "description":"Acted as lead webmaster and migrated old website from static HTML to dynamic PHP implementing <a href='https://jquery.com/' target='_blank'>jQuery</a>, AJAX, and CSS3." },
-  { "date":"April 2014 - August 2014", "company":"Sandia National Laboratories", "description":"Contributed to Sandia's <a href='https://github.com/ccss-sandia/antfarm' target='_blank'>ANTFARM</a>. Identified network traffic fingerprints for various Android advertising frameworks. Worked with a team of cyber security professionals in a high-performance computing lab constructing virtual networks using KVM and OVS and presenting findings to multi-million dollar customers." },
-  { "date":"October 2013 - April 2014", "company":"Sridhar NeuroDot Lab", "description":"Work with post-doc students to develop firmware for Arduino-based, minimal contact neural imaging device. Helped implement Bluetooth 4.0 for wireless communication from sensor to python-based GUI." },
-  { "date":"June 2012 - September 2013", "company":"Sandia National Laboratories", "description":"Implemented a number open source tools to demonstrate the interception and decryption of GSM (2G) cellphone calls using publicly available rainbow tables. <a href='http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6735818&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D6735818' target='_blank'>Published in MILCOM 2013</a>." }
-  ];
-  
-  // Add a row for each job
-  var enter = d3.select(".experience .experience-list").selectAll("tr").data(experience).enter();
-  var trs = enter.append("tr")
-  trs.append("td").text(function(d) { return d.date; });
-  trs.append("td").html(function(d) { return d.company; });
-  trs.append("td").append("p").html(function(d) { return d.description; });
-};
+var data = [
+{ "company":"Raytheon IDS", "start_date": new Date(2015, 0, 1), "end_date": new Date(), "description":"Developed a deployment plan for the Host Based Security System across DoD owned, Raytheon administered networks including a custom windows installation image. Hardened systems to comply with Security Technical Implementation Guides (STIGs).", "color":"#ce1126"},
+{ "company":"New Mexico Center for Family Policy/Values", "start_date": new Date(2014, 3, 1), "end_date": new Date(2014, 11, 1), "description":"Acted as lead webmaster and migrated an old, static HTML website to dynamic PHP implementing <a href='https://jquery.com/' target='_blank'>jQuery</a>, AJAX, and CSS3. Reported directly to the Executive Director and developed new pages for events, anouncements, and information delivering on-time results.", "color":"#FFFF00"},
+{ "company":"Sandia National Laboratories", "start_date": new Date(2014, 3, 1), "end_date": new Date(2014, 6, 1), "description":"Contributed to Sandia's <a href='https://github.com/ccss-sandia/antfarm' target='_blank'>ANTFARM</a>. Identified network traffic fingerprints for various Android advertising frameworks. Worked with a team of cyber security professionals in a high-performance computing lab designing, constructing, and testing large virtual networks.", "color":"#003366"},
+{ "company":"Sridhar NeuroDot Lab", "start_date": new Date(2013, 9, 1), "end_date": new Date(2014, 3, 1), "description":"Worked with post-doc student to develop firmware for Arduino-based, minimal-contact, low-power neural imaging device. Helped implement Bluetooth 4.0 for wireless communication from sensor to python-based GUI on a linux workstation. Volunteer.", "color":"#cc0000"},
+{ "company":"Sandia National Laboratories", "start_date": new Date(2012, 5, 1), "end_date": new Date(2013, 8, 1), "description":"Implemented a number open source tools to demonstrate the interception and decryption of GSM (2G) cellphone calls using publicly available rainbow tables. Developed a python-based XML reader/writer. <a href='http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6735818&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D6735818' target='_blank'>Published in MILCOM 2013</a>.", "color":"#003366"},
+];
+
+  var width = document.body.clientWidth < 900+180 ? document.body.clientWidth-.25*document.body.clientWidth : 900;
+function main() {
+  timeline = generate_timeline(width, 160, get_min_date(data), new Date(), ".experience");
+  draw_events(timeline, data);
+}
+
+main();
+}
 
 var projects = function(scroll_time) {
   // This will populate our project data

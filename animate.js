@@ -50,12 +50,12 @@ var main = function() {
   //bring_in("about_me", bring_in_speed);
 
   // Add click listeners to the menu items
-  $("[name='home']").click(function() { scroll_to("home", scroll_time, 30); });
-  $("[name='projects']").click(function() { scroll_to("projects", scroll_time, 30); });
-  $("[name='about']").click(function() { scroll_to("about_me", scroll_time, 30); });
-  $("[name='news']").click(function() { scroll_to("news", scroll_time, 20); });
-  $("[name='resume']").click(function() { scroll_to("resume", scroll_time, 30); });
-  $("[name='contact']").click(function() { scroll_to("contact", scroll_time, 30); });
+  $("[name='home']").click(function(e) { e.preventDefault(); scroll_to("home", scroll_time, 30); });
+  $("[name='projects']").click(function(e) { e.preventDefault(); scroll_to("projects", scroll_time, 30); });
+  $("[name='about']").click(function(e) { e.preventDefault(); scroll_to("about_me", scroll_time, 30); });
+  $("[name='news']").click(function(e) { e.preventDefault(); scroll_to("news", scroll_time, 20); });
+  $("[name='resume']").click(function(e) { e.preventDefault(); scroll_to("resume", scroll_time, 30); });
+  $("[name='contact']").click(function(e) { e.preventDefault(); scroll_to("contact", scroll_time, 30); });
 };
 
 $(document).ready(main);
