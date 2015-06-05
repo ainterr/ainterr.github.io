@@ -65,14 +65,15 @@ var skills = function () {
 	// This function draws the words on the page
 	div = d3.select(".skills").append("div");
 	div.attr("class", "word-cloud")
-		.style("width", style.width+"px")
-		.style("height", style.height+"px")
 		.style("position", "relative")
 		.style("margin", "0 auto");
 		
 	svg = div.append("svg")
 		.attr("width", style.width)
-		.attr("height", style.height);
+		.attr("height", style.height)
+    .attr("viewBox", "0 0 "+style.width+" "+style.height)
+    .style("width", "100%")
+    .style("height", style.height);
 
 	text = svg.append("g")
 		.attr("transform", "translate("+style.width/2+","+style.height/2+")")
@@ -116,7 +117,7 @@ var skills = function () {
 			popup = div.append("p")
 				.attr("class", "skills-desc")
 				.style("opacity", 0)
-				.style("width", style.width+"px")
+				.style("width", "80%")
 				.html(d.description);
 				
 			text.transition()

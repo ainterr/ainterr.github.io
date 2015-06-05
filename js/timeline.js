@@ -32,6 +32,7 @@ function generate_timeline(awidth, aheight, start_date, end_date, parent_node) {
     .style("padding-left", "20px")
     .style("padding-top", "10px")
     .style("padding-bottom", "10px")
+    .style("width", "90%")
     .style("margin", "0 auto");
 
   var title = text.append("p").append("h3")
@@ -43,6 +44,8 @@ function generate_timeline(awidth, aheight, start_date, end_date, parent_node) {
   var svg = div.append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    .attr("viewBox", "0 0 "+awidth+" "+aheight)
+    .style("width", "80%")
     .style("background", "#EEEEEE");
 
   svg.append("g")
