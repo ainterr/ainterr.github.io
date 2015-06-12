@@ -216,7 +216,8 @@ var news = function() {
   
   var news = [
   { "headline":"My New Website", "description":"It's about time I built myself a website. The source code is public on <a href='https://github.com/ainterr/' target='_blank'>my GitHub</a> if you're interested. Feel free to let me know what you think.", "image":"img/website.jpg", "link":"https://github.com/ainterr/ainterr.github.io" },
-  { "headline":"NECCDC 2015", "description":"Northeastern placed second in the NECCDC at <a href='http://www.syr.edu/' target='_blank'>Syracuse University</a> this year. Excellent work everyone - I'm proud to have been the team captain.", "image":"img/neccdc.jpg", "link":"http://www.northeastern.edu/news/2015/04/it-whizzes-compete-in-cybersecurity-competition/" }
+  { "headline":"NECCDC 2015", "description":"Northeastern placed second in the NECCDC at <a href='http://www.syr.edu/' target='_blank'>Syracuse University</a> this year. Excellent work everyone - I'm proud to have been the team captain.", "image":"img/neccdc.jpg", "link":"http://www.northeastern.edu/news/2015/04/it-whizzes-compete-in-cybersecurity-competition/" },
+  { "headline":"A Place to Share my Ideas", "description":"This website wasn't very article-friendly so I built a <a href='http://jekyllrb.com/' target='_blank'>Jekyll</a> blog.", "image":"img/blog.jpg", "link":"http://ainterr.github.io/blog/" }
   ];
   
   // Add indicators
